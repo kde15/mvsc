@@ -9,7 +9,14 @@ mvsc .
 # 動作環境
 Ubuntu20.04
 スクリーンショット撮影アプリケーション:`gnome-screenshot`
-※`config.yml`の設定をいじれば他の環境・アプリケーションでも使用可
+※`config.yml`をいじれば他の環境・アプリケーションでも使用可(詳しくは`config.yml`に記載)
+
+# 導入方法
+* リポジトリをcloneする
+* リポジトリルートで`go install .`を実行
+  * `$GOPATH/bin`(または`$HOME/go/bin`)に実行可能バイナリが生成されるので、そこにパスを通しておくとどこからでも実行できる
+* `$HOME/.app/mvsc`ディレクトリを作成し、`config.yml`をそこにコピーする
+  * シェルを用意したので、`setup.sh`を実行すれば自動でやってくれる
 
 # 使い方
 直近のスクリーンショットをカレントディレクトリに移動する場合
@@ -29,9 +36,9 @@ mvsc . --copy
 移動した上でファイル名を変更する
 
 ```sh
-mvsc . -f "capture.png"
+mvsc . -f "capture"
 # or
-mvsc . --file "capture.png"
+mvsc . --file "capture"
 ```
 
 移動した上でファイル名を連番にする(`-f`オプションとの併用不可)
