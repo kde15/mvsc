@@ -16,15 +16,32 @@ import (
 )
 
 // flags
-var hasCopy bool
-var isSequential bool
-var fileName string
+var (
+	hasCopy      bool
+	isSequential bool
+	fileName     string
+)
 
 // configs
-var captureDir string
-var captureFilePattern string
-var extension string
-var sequestialDigits int
+var (
+	captureDir         string
+	captureFilePattern string
+	extension          string
+	sequestialDigits   int
+)
+
+var RootCmd = &cobra.Command{
+	// アプリケーションコマンド名
+	Use: "mvsc",
+	// mvsc --helpで表示される文言
+	Short: "move screen capture",
+	// 想定される引数
+	Args: cobra.RangeArgs(1, 1),
+	// 実行処理
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return run(args[0])
+	},
+}
 
 func init() {
 	readConfig()
@@ -52,19 +69,6 @@ func readConfig() {
 	captureFilePattern = viper.GetString("captureFilePattern")
 	extension = viper.GetString("extension")
 	sequestialDigits = viper.GetInt("sequestialDigits")
-}
-
-var RootCmd = &cobra.Command{
-	// アプリケーションコマンド名
-	Use: "mvsc",
-	// mvsc --helpで表示される文言
-	Short: "move screen capture",
-	// 想定される引数
-	Args: cobra.RangeArgs(1, 1),
-	// 実行処理
-	RunE: func(cmd *cobra.Command, args []string) error {
-		return run(args[0])
-	},
 }
 
 // ファイルのコピー処理
