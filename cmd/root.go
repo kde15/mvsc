@@ -38,9 +38,13 @@ func init() {
 
 // 設定ファイルを読み込む
 func readConfig() {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
+	viper.AddConfigPath(filepath.Join(home, ".app", "mvsc"))
 	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
 	}
