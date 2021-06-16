@@ -155,13 +155,17 @@ func run(dstDir string) error {
 		panic(err)
 	}
 	globPattern := filepath.Join(home, captureDir, captureFilePattern+extension)
-	// 指定フォーマット画像ファイル一覧を取得
+	// 指定フォーマットの画像ファイル一覧を取得
 	capturePaths, err := filepath.Glob(globPattern)
 	if err != nil {
 		panic(err)
 	}
 	// 最新のスクリーンショットのパスを取得
-	latestCapturePath := *getEnd(capturePaths)
+	latest := getEnd(capturePaths)
+	if latest == nil {
+		return fmt.Errorf("screenshot not found\n")
+	}
+	latestCapturePath := *latest
 
 	// 移動先のファイル名
 	var dstFileName string
